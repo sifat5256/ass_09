@@ -39,13 +39,27 @@ class _ShopingCartState extends State<ShopingCart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+
+        //title: Text('Shopping Cart'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search,color: Colors.black,),
+            onPressed: () {
+              // Handle search action
+            },
+          ),
+        ],
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.all(14.0),
             child: Container(
-              height: 130,
+              height: 100,
               child: Row(
                 children: [
                   Expanded(
