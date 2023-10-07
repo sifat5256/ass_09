@@ -54,13 +54,6 @@ class _ShopingCartState extends State<ShopingCart> {
                       style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
                     ),
                   ),
-                  SizedBox(
-                    width: 60,
-                  ),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Icon(Icons.search),
-                  ),
                 ],
               ),
             ),
@@ -97,13 +90,24 @@ class _ShopingCartState extends State<ShopingCart> {
                               ),
                               Row(
                                 children: [
-                                  TextButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        productCounts[index]++;
-                                      });
-                                    },
-                                    child: Icon(Icons.add, size: 40),
+                                  ClipOval(
+                                    child: Material(
+                                      color: Colors.orange,
+                                      child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            productCounts[index]++;
+                                          });
+                                        },
+                                        child: Container(
+                                          width: 40,
+                                          height: 40,
+                                          child: Center(
+                                            child: Icon(Icons.add, color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 5,
@@ -112,27 +116,39 @@ class _ShopingCartState extends State<ShopingCart> {
                                   SizedBox(
                                     width: 5,
                                   ),
-                                  TextButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        productCounts[index]--;
-                                        if (productCounts[index] <= 0) {
-                                          productCounts[index] = 0;
-                                        }
-                                      });
-                                    },
-                                    child: Icon(Icons.remove, size: 40),
+                                  ClipOval(
+                                    child: Material(
+                                      color: Colors.orange,
+                                      child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            productCounts[index]--;
+                                            if (productCounts[index] <= 0) {
+                                              productCounts[index] = 0;
+                                            }
+                                          });
+                                        },
+                                        child: Container(
+                                          width: 40,
+                                          height: 40,
+                                          child: Center(
+                                            child: Icon(Icons.remove, color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
                               Row(
                                 children: [
-                                  Text("\$${productCounts[index] * productPrice[index]}", style: TextStyle(fontSize: 30)),
                                   SizedBox(
-                                    width: 100,
+                                    width: 130,
                                   ),
-                                  
-                                  Text('${productPrice[index].toString()}',style: TextStyle(fontSize: 35,fontWeight: FontWeight.w900),)
+                                  Text(
+                                    '\$${productPrice[index].toString()}',
+                                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900),
+                                  )
                                 ],
                               ),
                             ],
@@ -150,7 +166,6 @@ class _ShopingCartState extends State<ShopingCart> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 SizedBox(height: 10),
                 Text(
                   "Total Amount : \$${calculateTotalAmount()}",
@@ -163,7 +178,7 @@ class _ShopingCartState extends State<ShopingCart> {
             padding: const EdgeInsets.all(12.0),
             child: Container(
               width: double.infinity,
-              color: Colors.red,
+              height: 50,
               child: ElevatedButton(
                 onPressed: checkout,
                 child: Text('Check Out'),
