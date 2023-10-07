@@ -59,7 +59,7 @@ class _ShopingCartState extends State<ShopingCart> {
           Padding(
             padding: const EdgeInsets.all(14.0),
             child: Container(
-              height: 100,
+              height: 60,
               child: Row(
                 children: [
                   Expanded(
@@ -67,7 +67,7 @@ class _ShopingCartState extends State<ShopingCart> {
                       alignment: Alignment.bottomLeft,
                       child: Text(
                         'Our Product List',
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+                        style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900),
                       ),
                     ),
                   ),
