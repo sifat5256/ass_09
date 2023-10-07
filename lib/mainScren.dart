@@ -40,6 +40,7 @@ class _ShopingCartState extends State<ShopingCart> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.all(14.0),
@@ -47,11 +48,13 @@ class _ShopingCartState extends State<ShopingCart> {
               height: 130,
               child: Row(
                 children: [
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Text(
-                      'Our Product List',
-                      style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        'Our Product List',
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+                      ),
                     ),
                   ),
                 ],
@@ -63,126 +66,124 @@ class _ShopingCartState extends State<ShopingCart> {
               itemCount: productName.length,
               itemBuilder: (context, index) {
                 return Card(
-                  child: Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image(
-                            height: 200,
-                            width: 150,
-                            image: NetworkImage(productImage[index]),
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image(
+                          height: 120,
+                          width: 90,
+                          image: NetworkImage(productImage[index]),
+                        ),
+                        SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                productName[index],
-                                style: TextStyle(fontSize: 27, fontWeight: FontWeight.w900),
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Text("Color:${productColor[index]}    Size:${productSize[index]}"),
-                              SizedBox(
-                                height: 30,
-                              ),
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  ClipOval(
-                                    child: Material(
-                                      color: Colors.orange,
-                                      child: InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            productCounts[index]++;
-                                          });
-                                        },
-                                        child: Container(
-                                          width: 40,
-                                          height: 40,
-                                          child: Center(
-                                            child: Icon(Icons.add, color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text('${productCounts[index]}'),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  ClipOval(
-                                    child: Material(
-                                      color: Colors.orange,
-                                      child: InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            productCounts[index]--;
-                                            if (productCounts[index] <= 0) {
-                                              productCounts[index] = 0;
-                                            }
-                                          });
-                                        },
-                                        child: Container(
-                                          width: 40,
-                                          height: 40,
-                                          child: Center(
-                                            child: Icon(Icons.remove, color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 130,
-                                  ),
                                   Text(
-                                    '\$${productPrice[index].toString()}',
-                                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900),
-                                  )
+                                    productName[index],
+                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+                                  ),
+                                  PopupMenuButton(
+                                    itemBuilder: (context) {
+                                      return [
+                                        PopupMenuItem(
+                                          child: Text('Option 1'),
+                                        ),
+                                        PopupMenuItem(
+                                          child: Text('Option 2'),
+                                        ),
+                                        PopupMenuItem(
+                                          child: Text('Option 3'),
+                                        ),
+                                      ];
+                                    },
+                                    icon: Icon(Icons.more_vert),
+                                  ),
                                 ],
+                              ),
+                              SizedBox(height: 8),
+                              Text("Color:${productColor[index]}    Size:${productSize[index]}"),
+                              SizedBox(height: 16),
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        productCounts[index]++;
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.orange,
+                                      ),
+                                      padding: EdgeInsets.all(8),
+                                      child: Icon(Icons.add, color: Colors.white),
+                                    ),
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text('${productCounts[index]}'),
+                                  SizedBox(width: 8),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        productCounts[index]--;
+                                        if (productCounts[index] <= 1) {
+                                          productCounts[index] = 1;
+                                        }
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.orange,
+                                      ),
+                                      padding: EdgeInsets.all(8),
+                                      child: Icon(Icons.remove, color: Colors.white),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 16),
+                              Text(
+                                '\$${productPrice[index].toString()}',
+                                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
             ),
           ),
           Container(
+            padding: EdgeInsets.all(12),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 10),
                 Text(
                   "Total Amount : \$${calculateTotalAmount()}",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
                 ),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Container(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: checkout,
-                child: Text('Check Out'),
-              ),
+          Container(
+            width: double.infinity,
+            height: 50,
+            margin: EdgeInsets.all(12),
+            child: ElevatedButton(
+              onPressed: checkout,
+              child: Text('Check Out'),
             ),
           )
         ],
