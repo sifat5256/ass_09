@@ -110,49 +110,53 @@ class _ShopingCartState extends State<ShopingCart> {
                               Text("Color:${productColor[index]}    Size:${productSize[index]}"),
                               SizedBox(height: 16),
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        productCounts[index]++;
-                                      });
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.orange,
+                                  Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            productCounts[index]++;
+                                          });
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.orange,
+                                          ),
+                                          padding: EdgeInsets.all(8),
+                                          child: Icon(Icons.add, color: Colors.white),
+                                        ),
                                       ),
-                                      padding: EdgeInsets.all(8),
-                                      child: Icon(Icons.add, color: Colors.white),
-                                    ),
+                                      SizedBox(width: 8),
+                                      Text('${productCounts[index]}'),
+                                      SizedBox(width: 8),
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            productCounts[index]--;
+                                            if (productCounts[index] <= 1) {
+                                              productCounts[index] = 1;
+                                            }
+                                          });
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.orange,
+                                          ),
+                                          padding: EdgeInsets.all(8),
+                                          child: Icon(Icons.remove, color: Colors.white),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(width: 8),
-                                  Text('${productCounts[index]}'),
-                                  SizedBox(width: 8),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        productCounts[index]--;
-                                        if (productCounts[index] <= 1) {
-                                          productCounts[index] = 1;
-                                        }
-                                      });
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.orange,
-                                      ),
-                                      padding: EdgeInsets.all(8),
-                                      child: Icon(Icons.remove, color: Colors.white),
-                                    ),
+                                  Text(
+                                    '\$${productPrice[index].toString()}',
+                                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
                                   ),
                                 ],
-                              ),
-                              SizedBox(height: 16),
-                              Text(
-                                '\$${productPrice[index].toString()}',
-                                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
                               ),
                             ],
                           ),
@@ -170,9 +174,18 @@ class _ShopingCartState extends State<ShopingCart> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 10),
-                Text(
-                  "Total Amount : \$${calculateTotalAmount()}",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Total Amount : ",
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+                    ),
+                    Text(
+                      "\$${calculateTotalAmount()}",
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+                    ),
+                  ],
                 ),
               ],
             ),
